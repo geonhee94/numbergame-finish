@@ -9,3 +9,73 @@
 //유저가 이미 입력한 숫자를 또 입력하면, 알려준다, 기회를 깍지 않는다.
 //유저가 숫자 입력후 재입력할때 알아서 숫자가 지워지게 하는 것.
 //유저가 숫자를 맞추면 go 버튼이 없어지게 한다.
+
+let computerNum="0"
+let playButton = document.getElementById("play-button")
+let userInput = document.getElementById("user-input")
+let resultArea = document.getElementById("result-area")
+let resetButton = document.getElementById("reset-button")
+let chances = 3
+let gameOver = false
+let chanceArea = document.getElementById("chance-area")
+let history=[]
+let anSwer = document.getElementById("answer")
+let numHistory = document.getElementById("number-history")
+
+playButton.addEventListener("click",play)
+resetButton.addEventListener("click",reset)
+userInput.addEventListener("focus",function(){userInput.value=""})
+
+function pickRandomNum(){
+    computerNum = Math.floor(Math.random()*100)+1
+    console.log("정답",computerNum)
+    anSwer.textContent=`정답:${computerNum}`
+}
+
+
+
+function play(){
+    let userValue =userInput.value
+    if(userValue<1 || userValue>100){
+        resultArea.textContent="1과 100사이 숫자를 입력해주세요."
+return;
+    }
+numHistory.textContent=`[${history}]`
+
+if(history.includes(userValue)){
+    resultArea.textContent="이미 입력한 숫자입니다. 다른 숫자를 입력해주세요."
+return
+}
+
+
+chances--;
+chanceArea.textContent=`남은기회 :${chances}번`
+console.log("chance",chances)
+
+if(userValue<computerNum){
+    resultArea.textContent="위로!"
+}else if(userValue>computerNum){
+    resultArea.textContent="아래로!"
+}else{
+    resultArea.textContent="정답!"
+    gameOver = true
+}
+
+history.push(userValue)
+console.log(history)
+
+if(chances <1){
+    gameOver=true
+}
+if(gameOver==true){
+    playButton.disabled = true
+    resultArea.textContent="Game Over"
+}
+}
+function reset(){
+    userInput.value=""
+    pickRandomNum()
+    resultArea.textContent="결과값이 여기 나옵니다"
+}
+
+pickRandomNum()
