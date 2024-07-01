@@ -13,7 +13,8 @@ body {
     background-color: cornflowerblue;
   }
   .btn-outline-warning{
-    color: black;
+    color: purple;
+    border-color: black;
   }
   .button-style {
     margin-top: 10px;
@@ -28,6 +29,25 @@ body {
     height: 150px;
     margin-top: 10px;
 }
-@media (max-width:480px){
+
+.block-img{
+    display:none;
+    height: 150px;
+    margin:auto;
+    
+}
+
+@media screen and (max-width:480px){
+ .head-image{
+    display: none;
+ }
+ .block-img{
+    display: flex;
+    margin-top: 20px;
+    
+ }
+ .second-main-text{
+    display: none;
+ }
 
 }
